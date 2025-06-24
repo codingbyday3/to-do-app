@@ -103,10 +103,14 @@ nav{
 #content-container{
   height: 100%;
   padding: 2rem;
+  display: flex;
+
+  justify-content: center;
 }
 
 .homepage-container{
   height: 100%;
+  width: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
@@ -119,17 +123,18 @@ nav{
 }
 
 .homepage-tasks-container{
-  width: 20vw;
-  height: 20vw;
+  width: max(20vw,300px);
+  height: max(20vw,300px);
 
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.383);
+  color: var(--clr-blue-900);
 }
 
 .homepage-tasks-container a{
   display: block;
-  color: black;
+  color: var(--clr-blue-900);
   text-decoration: none;
   font-weight: bold;
   font-size: 1.1rem;
@@ -140,7 +145,7 @@ nav{
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
-  border-top: 1px solid black;
+  border-top: 1px solid var(--clr-blue-900);
   list-style: none;
   padding: 1rem;
 }
@@ -162,7 +167,7 @@ input[type="checkbox"]{
 }
 
 input[type="checkbox"]:checked{
-  transition: 1s;
+  transition: 0.5s;
   background-color: var(--clr-green-600);
   border: none;
 
@@ -180,5 +185,46 @@ input[type="checkbox"]::before{
 
 input[type="checkbox"]:checked::before{
   visibility: visible;
+}
+
+.calendar-container{
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  width: 100%;
+}
+
+.sidebar{
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.377);
+}
+
+.btn-sidebar{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-green-600);
+  border: none;
+  height: 50px;
+}
+
+.btn-sidebar svg{
+  width: 20px;
+  height: 20px;
+}
+
+.day-container{
+
+  height: 20%;
+  text-align: center;
+  background-color: white;
+  border: none;
+
+}
+
+.day-container:nth-of-type(odd){
+  background-color: var(--clr-white);
 }
 

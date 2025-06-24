@@ -3,10 +3,6 @@ function renderHomePage(){
   contentContaier.innerHTML = `
       <div class="homepage-container">
         <h2>Welcome to Your To-Do App!</h2>
-        <p>
-          Stay organized and boost your productivity with our simple and efficient task manager. Create, manage, and complete your tasks with ease. Whether it's daily chores, work goals, or long-term projects — we’ve got you covered.
-          Let’s get things done, one task at a time!
-        </p>
         <form class="homepage-tasks-container">
           <a href="#">Today's list</a>
           <ul>
@@ -24,9 +20,10 @@ function renderHomePage(){
             </li>
           </ul>
         </form>
-        <div class="homepage-tasks-container">
-          <a href="#"></a>
-        </div>
+        <form class="homepage-tasks-container">
+          <a href="#">Last project</a>
+          <ul></ul>
+        </form>
 
       </div>
   `
