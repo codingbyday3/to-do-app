@@ -1,6 +1,6 @@
-function renderHomePage(){
-  
-  return `
+function generateHomePage(){
+  const contentContaier = document.querySelector("#content-container")
+  contentContaier.innerHTML =  `
       <div class="homepage-container">
         <h2>Welcome to Your To-Do App!</h2>
         <form class="homepage-tasks-container">
@@ -29,4 +29,4 @@ function renderHomePage(){
   `
 }
 
-export {renderHomePage}
+export {generateHomePage}

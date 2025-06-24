@@ -198,6 +198,7 @@ input[type="checkbox"]:checked::before{
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.377);
+
 }
 
 .btn-sidebar{
@@ -226,5 +227,19 @@ input[type="checkbox"]:checked::before{
 
 .day-container:nth-of-type(odd){
   background-color: var(--clr-white);
+}
+
+.day-container:hover{
+  background-color: var(--clr-blue-900);
+  color: var(--clr-white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.btn-sidebar:hover{
+  background-color: var(--clr-green-700);
+  fill: var(--clr-white);
+  cursor: pointer;
+  transition: 0.5s;
 }
 

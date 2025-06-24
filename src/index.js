@@ -1,6 +1,6 @@
 import "./styles.css"
-import { renderHomePage } from "./home"
-import { renderCalendar } from "./calendar"
+import { generateHomePage } from "./home"
+import { generateCalendar } from "./calendar"
 
 function renderContent(){
   const contentContaier = document.querySelector("#content-container")
@@ -8,13 +8,14 @@ function renderContent(){
   const calendarBtn = document.querySelector(".btn-calendar")
   const projectsBtn = document.querySelector(".btn-projects")
 
-  contentContaier.innerHTML = renderHomePage()
+  generateHomePage()
   homeBtn.addEventListener("click", ()=>{
-    contentContaier.innerHTML = renderHomePage()
+    generateHomePage()
   })
 
   calendarBtn.addEventListener("click",()=>{
-    contentContaier.innerHTML = renderCalendar()
+    generateCalendar()
+
   })
 }
 
