@@ -2,23 +2,22 @@ import { addDays, subDays, startOfWeek, endOfWeek, eachDayOfInterval, format } f
 
 
 
-function getWeek(){
+function getWeek(date){
   const previousWeekBtn = document.querySelector(".btn-previous-week")
   const nextWeekBtn = document.querySelector(".btn-next-week")
-  let date = new Date()
 
   if(previousWeekBtn){
     previousWeekBtn.addEventListener("click", ()=>{
       date = subDays(date, 7)
-      console.log("fdsfd")
-      generateSidebar()
+
+      generateSidebar(date)
     })
   }
 
   if(nextWeekBtn){
     nextWeekBtn.addEventListener("click", ()=>{
       date = addDays(date, 7)
-      generateSidebar()
+      generateSidebar(date)
     })
   }
 
@@ -50,7 +49,7 @@ function getWeek(){
 
 }
 
-function generateSidebar(){
+function generateSidebar(date){
   const contentContaier = document.querySelector("#content-container")
 
   contentContaier.innerHTML = `   
@@ -80,12 +79,12 @@ function generateSidebar(){
     const previousWeekBtn = document.querySelector(".btn-previous-week")
     const nextWeekBtn = document.querySelector(".btn-next-week")
 
-    getWeek().forEach((date)=>{
+    getWeek(date).forEach((day)=>{
       const button = document.createElement("button")
       button.classList = "day-container"
       button.innerHTML = `
-        <p>${date.dayName}</p>
-        <p>${date.day}</p>
+        <p>${day.dayName}</p>
+        <p>${day.day}</p>
       `
       btnContainer.appendChild(button)
     })
@@ -97,7 +96,7 @@ function generateSidebar(){
 
 
 function generateCalendar(){
-  return generateSidebar()
+  return generateSidebar(new Date())
 }
 
 export {generateCalendar}
