@@ -6,15 +6,6 @@ function getWeek(){
 
   let date = new Date()
 
-  function renderWeek(){
-    const weekStart = startOfWeek(date, { weekStartsOn: 1 }) // Monday as first day
-    const weekEnd = endOfWeek(date, { weekStartsOn: 1 })     // Sunday as last day
-
-    const weekDates = eachDayOfInterval({ start: weekStart, end: weekEnd })
-    console.log(weekDates)
-    return weekDates
-  }
-
   if(previousWeekBtn){
     previousWeekBtn.addEventListener("click", ()=>{
     date = subDays(date, 7)
@@ -29,6 +20,32 @@ function getWeek(){
   })
   }
 
+  function renderWeek(){
+    const weekStart = startOfWeek(date, { weekStartsOn: 1 }) // Monday as first day
+    const weekEnd = endOfWeek(date, { weekStartsOn: 1 })     // Sunday as last day
+
+    const weekDates = eachDayOfInterval({ start: weekStart, end: weekEnd })
+
+
+    return formatWantedWeek(weekDates)
+  }
+
+  function formatWantedWeek(weekDates){
+    const week = []
+
+    weekDates.forEach((date) => {
+      week.push({
+        dayName:format(date, "EEE"),
+        day:format(date, "d.MM")
+      })
+    })
+    return week
+  
+  }
+
   return renderWeek()
 
 }
+
+
+export { getWeek}

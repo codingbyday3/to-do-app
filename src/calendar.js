@@ -12,11 +12,8 @@ function generateSidebar(){
               <path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" />
             </svg>
           </button>
-          <button class="day-container">
-            <p>Tue</p>
-            <p>24.6</p>
-          </button>
-
+          <div class=btn-container>
+          </div>
           
           <button class="btn-sidebar btn-next-week">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -27,6 +24,16 @@ function generateSidebar(){
         </div>
       </div
     `
+      const btnContainer = document.querySelector(".btn-container")
+      getWeek().forEach((date)=>{
+        const button = document.createElement("button")
+        button.classList = "day-container"
+        button.innerHTML = `
+          <p>${date.dayName}</p>
+          <p>${date.day}</p>
+        `
+        btnContainer.appendChild(button)
+      })
 }
 
 

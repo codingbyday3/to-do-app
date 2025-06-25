@@ -215,10 +215,14 @@ input[type="checkbox"]:checked::before{
   width: 20px;
   height: 20px;
 }
+.btn-container{
+  height: 100%;
+
+}
 
 .day-container{
-
-  height: 20%;
+  width: 100%;
+  height: calc(100%/7);
   text-align: center;
   background-color: white;
   border: none;
