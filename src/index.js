@@ -3,10 +3,11 @@ import { generateHomePage } from "./home"
 import { generateCalendar } from "./calendar"
 
 function renderContent(){
-  const contentContaier = document.querySelector("#content-container")
+
   const homeBtn = document.querySelector(".btn-home")
   const calendarBtn = document.querySelector(".btn-calendar")
   const projectsBtn = document.querySelector(".btn-projects")
+
 
   generateHomePage()
   homeBtn.addEventListener("click", ()=>{
