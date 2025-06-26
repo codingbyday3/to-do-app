@@ -71,7 +71,7 @@ function generateSidebar(date){
           </svg>
         </button>
       </div>
-    </div
+    </div>
   `
 
   function printWeekDays(){

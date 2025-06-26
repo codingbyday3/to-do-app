@@ -9,15 +9,15 @@ function renderContent(){
   const projectsBtn = document.querySelector(".btn-projects")
 
 
-  generateHomePage()
-  homeBtn.addEventListener("click", ()=>{
-    generateHomePage()
-  })
+  // generateHomePage()
+  // homeBtn.addEventListener("click", ()=>{
+  //   generateHomePage()
+  // })
 
-  calendarBtn.addEventListener("click",()=>{
-    generateCalendar()
+  // calendarBtn.addEventListener("click",()=>{
+  //   generateCalendar()
 
-  })
+  // })
 }
 
 renderContent()
