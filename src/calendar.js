@@ -25,19 +25,7 @@ function createTasks(title, time){
   }
 }
 
-function createHtml(){
 
-  const contentContainer = document.querySelector("#content-container")
-  const calendarContainer = document.createElement("div")
-  calendarContainer.className = "calendar-container"
-  contentContainer.innerHTML = ""
-  sidebarContainer.className = "sidebar"
-  mainContainer.className = "calendar-main"
-  calendarContainer.appendChild(sidebarContainer)
-  calendarContainer.appendChild(mainContainer)
-  contentContainer.appendChild(calendarContainer)
-
-}
 
 function getWeek(date){
   const previousWeekBtn = document.querySelector(".btn-previous-week")
@@ -120,7 +108,7 @@ function generateSidebar(date){
         <p>${day.day}</p>
       `
       button.addEventListener("click",()=>{
-        handleSelectedDate()
+        renderTasksContainer()
       })
       btnContainer.appendChild(button)
     })
@@ -131,7 +119,7 @@ function generateSidebar(date){
 }
 
 
-function handleSelectedDate(){
+function renderTasksContainer(){
 
   function renderTasksHtml(){
     mainContainer.innerHTML = `
@@ -163,9 +151,23 @@ function handleSelectedDate(){
 
 
 function generateCalendar(){
+  function createHtml(){
+
+    const contentContainer = document.querySelector("#content-container")
+    const calendarContainer = document.createElement("div")
+    calendarContainer.className = "calendar-container"
+    contentContainer.innerHTML = ""
+    sidebarContainer.className = "sidebar"
+    mainContainer.className = "calendar-main"
+    calendarContainer.appendChild(sidebarContainer)
+    calendarContainer.appendChild(mainContainer)
+    contentContainer.appendChild(calendarContainer)
+
+  }
+
   createHtml()
   generateSidebar(new Date())
-  handleSelectedDate()
+  renderTasksContainer()
 
 }
 

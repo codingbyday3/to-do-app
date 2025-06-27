@@ -14,6 +14,9 @@
   /* font-familys */
   --ff-roboto:"Roboto", sans-serif;
   --ff-space-grotesk:"Space Grotesk", sans-serif;
+
+  /* box-shadow */
+  --bs-default:0 0 20px rgba(0, 0, 0, 0.427)
 }
 
 *, *::before, *::after {
@@ -104,7 +107,7 @@ nav{
   height: 100%;
   padding: 2rem;
   display: flex;
-
+  position: relative;
   justify-content: center;
 }
 
@@ -128,7 +131,7 @@ nav{
 
   border-radius: 10px;
   background-color: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.383);
+  box-shadow: var(--bs-default);
   color: var(--clr-blue-900);
 }
 
@@ -199,7 +202,7 @@ input[type="checkbox"]:checked::before{
 
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.377);
+  box-shadow: var(--bs-default);
 
 }
 
@@ -257,7 +260,7 @@ input[type="checkbox"]:checked::before{
 .task-container{
   background-color: white;
   color: var(--clr-blue-900);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.404);
+  box-shadow: var(--bs-default);
 }
 
 .add-new-task{
@@ -299,3 +302,69 @@ input[type="checkbox"]:checked::before{
   font-weight: 700;
 }
 
+dialog{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  box-shadow:var(--bs-default);
+  border-radius: 10px;
+  padding: 30px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 30vw;
+  height: 30vw;
+  color: var(--clr-blue-900);
+}
+form label{
+  font-weight: 500;
+
+}
+
+form div{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+dialog input{
+  height: 50px;
+  appearance: none;
+  border: none;
+  background-color: var(--clr-green-500);
+  border-radius: 10px;
+  color: var(--clr-blue-900);
+
+}
+
+dialog input:focus{
+  outline: none;
+  border: 2px solid var(--clr-green-600);
+}
+
+
+dialog textarea{
+  height: 200px;
+  resize: none;
+  background-color: var(--clr-green-500);
+  border-radius: 10px;
+  border: none;
+  color: var(--clr-blue-900);
+}
+
+dialog textarea:focus{
+  outline: none;
+  border: 2px solid var(--clr-green-600);
+  color: var(--clr-blue-900);
+}
+
+dialog textarea,
+dialog input{
+  padding: 10px;
+}
