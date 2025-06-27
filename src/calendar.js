@@ -5,6 +5,13 @@ const mainContainer = document.createElement("div")
 function createDay(date){
   const tasks = []
 
+  function createTasks(title, time){
+  return{
+    title,
+    time
+  }
+}
+
   return{
     date,
     addTask(title, time){
@@ -16,13 +23,6 @@ function createDay(date){
     }
   }
 
-}
-
-function createTasks(title, time){
-  return{
-    title,
-    time
-  }
 }
 
 
@@ -147,17 +147,18 @@ function renderTasksContainer(){
               <form method="dialog" action="">
                 <div>
                   <label for="task">Task:</label>
-                  <input autocomplete="off" id="task" type="text">
+                  <input autocomplete="off" id="task" type="text" placeholder="e.g. Make breakfast" required>
                 </div>
 
                 <div>
                   <label for="time">Time: </label>
-                  <input autocomplete="off" id="time" type="text">
+                  <input autocomplete="off" id="time" type="text" pattern="^([01]\d|2[0-3]):([0-5]\d)$" placeholder="e.g. 19:00">
                 </div>
                 <div>
-                  <label for="comment">Comment</label>
+                  <label for="comment">Comment:</label>
                   <textarea name="" id="comment"></textarea>
                 </div>
+                <button type="submit">Submit</button>
               </form>
             </dialog>
 
@@ -171,18 +172,28 @@ function renderTasksContainer(){
 }
 
 function taksContainer(){
-  const taskBtn = document.querySelector(".task-btn")
-  const dialog = document.querySelector(".calendar-dialog")
-  const closeDialog = document.querySelector(".close-dialog")
 
-  taskBtn.addEventListener("click", ()=>{
-    dialog.showModal()
+  const days = []
 
-  })
+  function handleDialogClick(){
+    const taskBtn = document.querySelector(".task-btn")
+    const dialog = document.querySelector(".calendar-dialog")
+    const closeDialog = document.querySelector(".close-dialog")
 
-  closeDialog.addEventListener("click", ()=>{
-    dialog.close()
-  })
+    taskBtn.addEventListener("click", ()=>{
+      dialog.showModal()
+
+    })
+
+    closeDialog.addEventListener("click", ()=>{
+      dialog.close()
+    })
+  }
+
+
+
+  handleDialogClick()
+
 }
 
 

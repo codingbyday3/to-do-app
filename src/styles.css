@@ -392,3 +392,15 @@ dialog textarea,
 dialog input{
   padding: 10px;
 }
+
+dialog button[type="submit"]{
+  background-color: var(--clr-green-700);
+  border: none;
+  height: 2rem;
+  border-radius: 10px;
+}
+
+dialog button[type="submit"]:hover{
+  background-color: var(--clr-blue-600);
+  cursor: pointer;
+}
