@@ -189,8 +189,8 @@ input[type="checkbox"]:checked::before{
 
 .calendar-container{
   display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 2rem;
+  grid-template-columns: 100px 1fr;
+  gap: 3rem;
   width: 100%;
 }
 

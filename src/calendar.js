@@ -1,6 +1,31 @@
 import { addDays, subDays, startOfWeek, endOfWeek, eachDayOfInterval, format } from 'date-fns'
 
+let calendarContainer = document.createElement("div")
+calendarContainer.className = "calendar-container"
 
+
+function createDay(date){
+  const tasks = []
+
+  return{
+    date,
+    addTask(title, time){
+      const task = createTasks(title, time)
+      tasks.push(task)
+    },
+    getTasks() {
+      return [...tasks];
+    }
+  }
+
+}
+
+function createTasks(title, time){
+  return{
+    title,
+    time
+  }
+}
 
 function getWeek(date){
   const previousWeekBtn = document.querySelector(".btn-previous-week")
@@ -50,10 +75,9 @@ function getWeek(date){
 }
 
 function generateSidebar(date){
-  const contentContaier = document.querySelector("#content-container")
 
-  contentContaier.innerHTML = `   
-    <div class="calendar-container">
+
+  calendarContainer.innerHTML = `   
       <div class="sidebar">
         <button class="btn-sidebar btn-previous-week">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -71,13 +95,10 @@ function generateSidebar(date){
           </svg>
         </button>
       </div>
-    </div>
   `
 
   function printWeekDays(){
     const btnContainer = document.querySelector(".btn-container")
-    const previousWeekBtn = document.querySelector(".btn-previous-week")
-    const nextWeekBtn = document.querySelector(".btn-next-week")
 
     getWeek(date).forEach((day)=>{
       const button = document.createElement("button")
@@ -86,6 +107,9 @@ function generateSidebar(date){
         <p>${day.dayName}</p>
         <p>${day.day}</p>
       `
+      button.addEventListener("click",()=>{
+        handleSelectedDate()
+      })
       btnContainer.appendChild(button)
     })
   }
@@ -95,8 +119,40 @@ function generateSidebar(date){
 }
 
 
+function handleSelectedDate(){
+
+  function renderTasksHtml(){
+    calendarContainer.innerHTML += `
+ 
+        <div class="task-container">
+          <div class="task">
+            <div class="new-task">
+              <p class="task-name">Cleaning dishes</p>
+              <div>
+                <p>12:00</p>
+              </div>
+
+            </div>
+            <div class="add-new-task">
+              <button>+</button>
+              <p>Add task</p>
+            </div>
+
+          </div>
+        </div>
+
+    `
+  }
+  renderTasksHtml()
+}
+
+
+
+
+
 function generateCalendar(){
-  return generateSidebar(new Date())
+  document.querySelector("#content-container").replaceChildren(calendarContainer)
+  return generateSidebar(new Date()) + handleSelectedDate()
 }
 
 export {generateCalendar}
