@@ -1,8 +1,6 @@
 import { addDays, subDays, startOfWeek, endOfWeek, eachDayOfInterval, format } from 'date-fns'
-
-let calendarContainer = document.createElement("div")
-calendarContainer.className = "calendar-container"
-
+const sidebarContainer = document.createElement("div")
+const mainContainer = document.createElement("div")
 
 function createDay(date){
   const tasks = []
@@ -25,6 +23,20 @@ function createTasks(title, time){
     title,
     time
   }
+}
+
+function createHtml(){
+
+  const contentContainer = document.querySelector("#content-container")
+  const calendarContainer = document.createElement("div")
+  calendarContainer.className = "calendar-container"
+  contentContainer.innerHTML = ""
+  sidebarContainer.className = "sidebar"
+  mainContainer.className = "calendar-main"
+  calendarContainer.appendChild(sidebarContainer)
+  calendarContainer.appendChild(mainContainer)
+  contentContainer.appendChild(calendarContainer)
+
 }
 
 function getWeek(date){
@@ -77,8 +89,8 @@ function getWeek(date){
 function generateSidebar(date){
 
 
-  calendarContainer.innerHTML = `   
-      <div class="sidebar">
+  sidebarContainer.innerHTML = `   
+
         <button class="btn-sidebar btn-previous-week">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <title>arrow-up</title>
@@ -94,7 +106,7 @@ function generateSidebar(date){
             <path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" />
           </svg>
         </button>
-      </div>
+
   `
 
   function printWeekDays(){
@@ -122,7 +134,7 @@ function generateSidebar(date){
 function handleSelectedDate(){
 
   function renderTasksHtml(){
-    calendarContainer.innerHTML += `
+    mainContainer.innerHTML = `
  
         <div class="task-container">
           <div class="task">
@@ -151,8 +163,10 @@ function handleSelectedDate(){
 
 
 function generateCalendar(){
-  document.querySelector("#content-container").replaceChildren(calendarContainer)
-  return generateSidebar(new Date()) + handleSelectedDate()
+  createHtml()
+  generateSidebar(new Date())
+  handleSelectedDate()
+
 }
 
 export {generateCalendar}

@@ -192,6 +192,7 @@ input[type="checkbox"]:checked::before{
   grid-template-columns: 100px 1fr;
   gap: 3rem;
   width: 100%;
+  height: 100%;
 }
 
 .sidebar{
@@ -199,6 +200,11 @@ input[type="checkbox"]:checked::before{
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.377);
+
+}
+
+.calendar-main{
+  height: 100%;
 
 }
 
