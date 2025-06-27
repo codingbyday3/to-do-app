@@ -134,9 +134,32 @@ function renderTasksContainer(){
 
             </div>
             <div class="add-new-task">
-              <button>+</button>
+              <button class="task-btn">+</button>
               <p>Add task</p>
             </div>
+            <dialog class="calendar-dialog">
+              <div class="dialog-header">
+                <h2>Task creation</h2>
+                <button class="close-dialog">
+                X
+                </button>
+              </div>
+              <form method="dialog" action="">
+                <div>
+                  <label for="task">Task:</label>
+                  <input autocomplete="off" id="task" type="text">
+                </div>
+
+                <div>
+                  <label for="time">Time: </label>
+                  <input autocomplete="off" id="time" type="text">
+                </div>
+                <div>
+                  <label for="comment">Comment</label>
+                  <textarea name="" id="comment"></textarea>
+                </div>
+              </form>
+            </dialog>
 
           </div>
         </div>
@@ -144,6 +167,22 @@ function renderTasksContainer(){
     `
   }
   renderTasksHtml()
+  taksContainer()
+}
+
+function taksContainer(){
+  const taskBtn = document.querySelector(".task-btn")
+  const dialog = document.querySelector(".calendar-dialog")
+  const closeDialog = document.querySelector(".close-dialog")
+
+  taskBtn.addEventListener("click", ()=>{
+    dialog.showModal()
+
+  })
+
+  closeDialog.addEventListener("click", ()=>{
+    dialog.close()
+  })
 }
 
 
