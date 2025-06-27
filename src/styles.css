@@ -373,22 +373,7 @@ dialog input:focus{
 }
 
 
-dialog textarea{
-  height: 200px;
-  resize: none;
-  background-color: var(--clr-green-500);
-  border-radius: 10px;
-  border: none;
-  color: var(--clr-blue-900);
-}
 
-dialog textarea:focus{
-  outline: none;
-  border: 2px solid var(--clr-green-600);
-  color: var(--clr-blue-900);
-}
-
-dialog textarea,
 dialog input{
   padding: 10px;
 }
@@ -398,6 +383,7 @@ dialog button[type="submit"]{
   border: none;
   height: 2rem;
   border-radius: 10px;
+  margin-top: auto;
 }
 
 dialog button[type="submit"]:hover{

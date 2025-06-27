@@ -1,16 +1,17 @@
 import { addDays, subDays, startOfWeek, endOfWeek, eachDayOfInterval, format } from 'date-fns'
 const sidebarContainer = document.createElement("div")
 const mainContainer = document.createElement("div")
+const days = []
 
 function createDay(date){
   const tasks = []
 
   function createTasks(title, time){
-  return{
-    title,
-    time
+    return{
+      title,
+      time
+    }
   }
-}
 
   return{
     date,
@@ -25,9 +26,9 @@ function createDay(date){
 
 }
 
+function sidebar(date){
 
-
-function getWeek(date){
+  function getWeek(date){
   const previousWeekBtn = document.querySelector(".btn-previous-week")
   const nextWeekBtn = document.querySelector(".btn-next-week")
 
@@ -72,54 +73,58 @@ function getWeek(date){
 
   return renderWeek()
 
-}
-
-function generateSidebar(date){
-
-
-  sidebarContainer.innerHTML = `   
-
-        <button class="btn-sidebar btn-previous-week">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <title>arrow-up</title>
-            <path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" />
-          </svg>
-        </button>
-        <div class=btn-container>
-        </div>
-        
-        <button class="btn-sidebar btn-next-week">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <title>arrow-down</title>
-            <path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" />
-          </svg>
-        </button>
-
-  `
-
-  function printWeekDays(){
-    const btnContainer = document.querySelector(".btn-container")
-
-    getWeek(date).forEach((day)=>{
-      const button = document.createElement("button")
-      button.classList = "day-container"
-      button.innerHTML = `
-        <p>${day.dayName}</p>
-        <p>${day.day}</p>
-      `
-      button.addEventListener("click",()=>{
-        renderTasksContainer()
-      })
-      btnContainer.appendChild(button)
-    })
   }
 
-  printWeekDays()
+  function generateSidebar(date){
 
+
+    sidebarContainer.innerHTML = `   
+
+          <button class="btn-sidebar btn-previous-week">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>arrow-up</title>
+              <path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" />
+            </svg>
+          </button>
+          <div class=btn-container>
+          </div>
+          
+          <button class="btn-sidebar btn-next-week">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>arrow-down</title>
+              <path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" />
+            </svg>
+          </button>
+
+    `
+
+    function printWeekDays(){
+      const btnContainer = document.querySelector(".btn-container")
+
+      getWeek(date).forEach((day)=>{
+        const button = document.createElement("button")
+        button.classList = "day-container"
+        button.innerHTML = `
+          <p>${day.dayName}</p>
+          <p>${day.day}</p>
+        `
+        button.addEventListener("click",()=>{
+          console.log("fdsf")
+        })
+        btnContainer.appendChild(button)
+      })
+    }
+
+    printWeekDays()
+
+  }
+  generateSidebar(date)
 }
 
 
-function renderTasksContainer(){
+
+
+function tasksContainer(){
 
   function renderTasksHtml(){
     mainContainer.innerHTML = `
@@ -154,10 +159,6 @@ function renderTasksContainer(){
                   <label for="time">Time: </label>
                   <input autocomplete="off" id="time" type="text" pattern="^([01]\d|2[0-3]):([0-5]\d)$" placeholder="e.g. 19:00">
                 </div>
-                <div>
-                  <label for="comment">Comment:</label>
-                  <textarea name="" id="comment"></textarea>
-                </div>
                 <button type="submit">Submit</button>
               </form>
             </dialog>
@@ -167,13 +168,6 @@ function renderTasksContainer(){
 
     `
   }
-  renderTasksHtml()
-  taksContainer()
-}
-
-function taksContainer(){
-
-  const days = []
 
   function handleDialogClick(){
     const taskBtn = document.querySelector(".task-btn")
@@ -191,10 +185,12 @@ function taksContainer(){
   }
 
 
-
+  renderTasksHtml()
   handleDialogClick()
 
+
 }
+
 
 
 
@@ -216,8 +212,8 @@ function generateCalendar(){
   }
 
   createHtml()
-  generateSidebar(new Date())
-  renderTasksContainer()
+  sidebar(new Date())
+  tasksContainer()
 
 }
 
