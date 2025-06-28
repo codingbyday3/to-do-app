@@ -109,14 +109,15 @@ function sidebar(date){
           <p>${day.day}</p>
         `
         button.addEventListener("click",()=>{
+          clickedDate = day.day
           const exists = days.some(element => element.date === day.day);
           if (exists) {
+            tasksContainer()
             return;
           }  
           const selectedDay = createDay(day.day)
           days.push(selectedDay)
-          clickedDate = day.day
-          generateCalendar()
+          tasksContainer()
         })
         btnContainer.appendChild(button)
       })
@@ -133,17 +134,13 @@ function sidebar(date){
 
 function tasksContainer(){
   function renderTasksHtml(){
+    const tasksContainer = document.querySelector(".task")
+
     mainContainer.innerHTML = `
  
         <div class="task-container">
           <div class="task">
-            <div class="new-task">
-              <p class="task-name">Cleaning dishes</p>
-              <div>
-                <p>12:00</p>
-              </div>
-
-            </div>
+            <div class="new-task"></div>
             <div class="add-new-task">
               <button class="task-btn">+</button>
               <p>Add task</p>
@@ -173,12 +170,40 @@ function tasksContainer(){
         </div>
 
     `
+    const newTask = document.querySelector(".new-task")
+
+
+    for(let day of days){
+      if(day.date === clickedDate){
+        if(day.tasks.length === 0){
+          newTask.style.display = "none"
+          return;
+        }else{
+                newTask.style.display = "flex"
+        }
+        for(let task of day.tasks){
+
+            const timePara = document.createElement("p")
+            const taskPara = document.createElement("p")
+            taskPara.className = "task-name"
+            console.log(task.title)
+            taskPara.textContent = task.title
+            timePara.textContent = task.time
+
+            newTask.appendChild(taskPara)
+            newTask.appendChild(timePara)
+          
+        }
+      }
+
+    }
   }
 
   function handleDialogClick(){
     const taskBtn = document.querySelector(".task-btn")
     const dialog = document.querySelector(".calendar-dialog")
     const closeDialog = document.querySelector(".close-dialog")
+    const form = dialog.querySelector("form");
 
     taskBtn.addEventListener("click", ()=>{
       dialog.showModal()
@@ -188,6 +213,10 @@ function tasksContainer(){
     closeDialog.addEventListener("click", ()=>{
       dialog.close()
     })
+
+    dialog.addEventListener("close", () => {
+      form.reset();
+    });
 
   }
 
@@ -201,13 +230,16 @@ function tasksContainer(){
 
   function handleTaskForm(){
     const submitButton = document.querySelector(".submit-task")
+
     const findedDate = findSelectedDate()
 
     submitButton.addEventListener("click", ()=>{
-      console.log(findedDate)
-      const task = document.querySelector("#task").value
-      const time = document.querySelector("#time").value
-      findedDate.addTask(task, time)
+      console.log(days)
+      const task = document.querySelector("#task")
+      const time = document.querySelector("#time")
+      findedDate.addTask(task.value, time.value)
+      renderTasksHtml()
+
     })
 
   }
@@ -217,7 +249,6 @@ function tasksContainer(){
 
   handleDialogClick()
   handleTaskForm()
-
 
 
 
@@ -247,7 +278,7 @@ function generateCalendar(){
   if(days.length > 0){
     tasksContainer()
   }
-  console.log(days)
+
 
 }
 
