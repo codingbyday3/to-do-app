@@ -191,15 +191,33 @@ function tasksContainer(){
 
   }
 
+  function findSelectedDate(){
+    for(let day of days){
+      if(day.date === clickedDate){
+        return day
+      }
+    }
+  }
 
+  function handleTaskForm(){
+    const submitButton = document.querySelector(".submit-task")
+    const findedDate = findSelectedDate()
+
+    submitButton.addEventListener("click", ()=>{
+      console.log(findedDate)
+      const task = document.querySelector("#task").value
+      const time = document.querySelector("#time").value
+      findedDate.addTask(task, time)
+    })
+
+  }
 
   renderTasksHtml()
 
 
-  if(renderTasksHtml()){
-    handleDialogClick()
-    handleTaskForm()
-  }
+  handleDialogClick()
+  handleTaskForm()
+
 
 
 
