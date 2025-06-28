@@ -2,16 +2,11 @@ import { addDays, subDays, startOfWeek, endOfWeek, eachDayOfInterval, format } f
 const sidebarContainer = document.createElement("div")
 const mainContainer = document.createElement("div")
 const days = []
+let clickedDate = ""
+
 
 function createDay(date){
   const tasks = []
-
-  function createTasks(title, time){
-    return{
-      title,
-      time
-    }
-  }
 
   return{
     date,
@@ -19,11 +14,16 @@ function createDay(date){
       const task = createTasks(title, time)
       tasks.push(task)
     },
-    getTasks() {
-      return [...tasks];
-    }
+    tasks
   }
 
+}
+
+function createTasks(title, time){
+  return{
+    title,
+    time
+  }
 }
 
 function sidebar(date){
@@ -109,7 +109,14 @@ function sidebar(date){
           <p>${day.day}</p>
         `
         button.addEventListener("click",()=>{
-          console.log("fdsf")
+          const exists = days.some(element => element.date === day.day);
+          if (exists) {
+            return;
+          }  
+          const selectedDay = createDay(day.day)
+          days.push(selectedDay)
+          clickedDate = day.day
+          generateCalendar()
         })
         btnContainer.appendChild(button)
       })
@@ -125,7 +132,6 @@ function sidebar(date){
 
 
 function tasksContainer(){
-
   function renderTasksHtml(){
     mainContainer.innerHTML = `
  
@@ -157,9 +163,9 @@ function tasksContainer(){
 
                 <div>
                   <label for="time">Time: </label>
-                  <input autocomplete="off" id="time" type="text" pattern="^([01]\d|2[0-3]):([0-5]\d)$" placeholder="e.g. 19:00">
+                  <input autocomplete="off" id="time" type="time" placeholder="e.g. 19:00">
                 </div>
-                <button type="submit">Submit</button>
+                <button class="submit-task" type="submit">Submit</button>
               </form>
             </dialog>
 
@@ -182,11 +188,19 @@ function tasksContainer(){
     closeDialog.addEventListener("click", ()=>{
       dialog.close()
     })
+
   }
 
 
+
   renderTasksHtml()
-  handleDialogClick()
+
+
+  if(renderTasksHtml()){
+    handleDialogClick()
+    handleTaskForm()
+  }
+
 
 
 }
@@ -210,10 +224,12 @@ function generateCalendar(){
     contentContainer.appendChild(calendarContainer)
 
   }
-
   createHtml()
   sidebar(new Date())
-  tasksContainer()
+  if(days.length > 0){
+    tasksContainer()
+  }
+  console.log(days)
 
 }
 
