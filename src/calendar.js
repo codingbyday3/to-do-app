@@ -138,8 +138,6 @@ function tasksContainer(){
 
     mainContainer.innerHTML = `
  
-        <div class="task-container">
-          <div class="task">
             <div class="new-task"></div>
             <div class="add-new-task">
               <button class="task-btn">+</button>
@@ -166,8 +164,7 @@ function tasksContainer(){
               </form>
             </dialog>
 
-          </div>
-        </div>
+
 
     `
     const newTask = document.querySelector(".new-task")
@@ -182,16 +179,18 @@ function tasksContainer(){
                 newTask.style.display = "flex"
         }
         for(let task of day.tasks){
-
+            const div = document.createElement("div")
+            div.className = ""
             const timePara = document.createElement("p")
             const taskPara = document.createElement("p")
             taskPara.className = "task-name"
-            console.log(task.title)
             taskPara.textContent = task.title
             timePara.textContent = task.time
 
-            newTask.appendChild(taskPara)
-            newTask.appendChild(timePara)
+            div.appendChild(taskPara)
+            div.appendChild(timePara)
+
+            newTask.append(div)
           
         }
       }
@@ -239,7 +238,8 @@ function tasksContainer(){
       const time = document.querySelector("#time")
       findedDate.addTask(task.value, time.value)
       renderTasksHtml()
-
+      handleDialogClick()
+      handleTaskForm() 
     })
 
   }

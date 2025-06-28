@@ -206,10 +206,6 @@ input[type="checkbox"]:checked::before{
 
 }
 
-.calendar-main{
-  height: 100%;
-
-}
 
 .btn-sidebar{
 
@@ -257,20 +253,7 @@ input[type="checkbox"]:checked::before{
   transition: 0.5s;
 }
 
-.task-container{
-  background-color: white;
-  color: var(--clr-blue-900);
-  box-shadow: var(--bs-default);
-}
 
-.add-new-task{
-  display: flex;
-  gap: 50%;
-  padding: 20px; /*dodaj da se bo visina spreminjala z stevilom taskov*/
-  align-items: center;
-  border-bottom: 1px solid var(--clr-white);
-  border-top: 1px solid var(--clr-white);
-}
 
 .add-new-task button{
   font-size: 1.5rem;
@@ -289,12 +272,34 @@ input[type="checkbox"]:checked::before{
 }
 
 .new-task{
+  flex-direction: column;
+  background-color: white;
+  color: var(--clr-blue-900);
+}
+
+.add-new-task
+{
   display: flex;
   padding: 30px; /*dodaj da se bo visina spreminjala z stevilom taskov*/
-  justify-content: space-around;
+
   align-items: center;
   border-bottom: 1px solid var(--clr-white);
   border-top: 1px solid var(--clr-white);
+  background-color: white;
+  color: var(--clr-blue-900);
+}
+
+.new-task div,
+.add-new-task{
+  gap: 3rem;
+  height: clamp(50px,10vh ,150px);
+}
+
+.new-task div{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--clr-white);
 }
 
 .task-name{
