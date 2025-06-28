@@ -22,7 +22,8 @@ function createDay(date){
 function createTasks(title, time){
   return{
     title,
-    time
+    time,
+    isDone:false
   }
 }
 
@@ -176,21 +177,34 @@ function tasksContainer(){
           newTask.style.display = "none"
           return;
         }else{
-                newTask.style.display = "flex"
+          newTask.style.display = "flex"
         }
+        let i = 0
         for(let task of day.tasks){
-            const div = document.createElement("div")
-            div.className = ""
+            const taskDiv = document.createElement("div")
+            const controlTaskDiv = document.createElement("div")
+            const input = document.createElement("input")
+            input.type = "checkbox"
+            const button = document.createElement("button")
+            button.className = "close-task"
+            button.textContent = "-"
+            button.dataset.id = i
+            button.dataset.date = clickedDate
+            taskDiv.className = "task"
             const timePara = document.createElement("p")
             const taskPara = document.createElement("p")
             taskPara.className = "task-name"
             taskPara.textContent = task.title
             timePara.textContent = task.time
 
-            div.appendChild(taskPara)
-            div.appendChild(timePara)
+            controlTaskDiv.appendChild(input)
+            controlTaskDiv.appendChild(button)
+            taskDiv.appendChild(taskPara)
+            taskDiv.appendChild(timePara)
+            taskDiv.appendChild(controlTaskDiv)
 
-            newTask.append(div)
+            newTask.appendChild(taskDiv)
+            i++
           
         }
       }
@@ -239,9 +253,39 @@ function tasksContainer(){
       findedDate.addTask(task.value, time.value)
       renderTasksHtml()
       handleDialogClick()
-      handleTaskForm() 
+      handleTaskForm()
+      hadleDeleteBtn()
     })
 
+  }
+
+  function hadleDeleteBtn(){
+    const deleteButtons = document.querySelectorAll(".close-task")
+    if(!deleteButtons){
+      return;
+    }
+    deleteButtons.forEach((deleteBtn) => {
+      deleteBtn.addEventListener("click",(e)=>{
+        const dateForDelete = e.target.dataset.date
+        const idForDelete = e.target.dataset.id
+        
+        for(let day of days){
+          if(day.date === dateForDelete){
+            for(let i = 0; i < day.tasks.length; i++){
+              if(i === Number(idForDelete)){
+
+                day.tasks.splice(i, 1)
+                renderTasksHtml()
+                handleDialogClick()
+                handleTaskForm()
+                break
+              }
+            }
+          }
+        }
+        console.log(days)
+      })
+    })
   }
 
   renderTasksHtml()
@@ -250,7 +294,7 @@ function tasksContainer(){
   handleDialogClick()
   handleTaskForm()
 
-
+  hadleDeleteBtn()
 
 }
 
