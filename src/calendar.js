@@ -168,6 +168,7 @@ function tasksContainer(){
 
     `
     requestAnimationFrame(() => {
+      renderTasks()
       handleDialogClick()
       handleTaskForm()
     })
@@ -175,7 +176,13 @@ function tasksContainer(){
 
   function renderTasks(){
     const newTask = document.querySelector(".new-task")
+    const addNewTask = document.querySelector(".add-new-task")
     newTask.innerHTML = ""
+    if(!clickedDate){
+      addNewTask.style.display = "none"
+    }else{
+      addNewTask.style.display = "flex"
+    }
     for(let day of days){
       if(day.date === clickedDate){
         if(day.tasks.length === 0){
@@ -265,7 +272,7 @@ function tasksContainer(){
       const dialog = document.querySelector(".calendar-dialog")
       dialog.close()
       findedDate.addTask(task.value, time.value)
-
+      saveInLocalStoage()
       renderTasks()
     })
 
@@ -283,7 +290,7 @@ function tasksContainer(){
             if(i === Number(idForDelete)){
 
               day.tasks.splice(i, 1)
-
+              saveInLocalStoage()
               renderTasks()
 
               return;
@@ -301,9 +308,27 @@ function tasksContainer(){
 }
 
 
+function saveInLocalStoage(){
+  localStorage.setItem("days", JSON.stringify(days));
+}
 
+function loadLocalStorage(){
+  const savedDays = JSON.parse(localStorage.getItem("days"));
 
+  if (savedDays) {
+    days.length = 0;
 
+    savedDays.forEach(savedDay => {
+      const restoredDay = createDay(savedDay.date);
+
+      savedDay.tasks.forEach(task => {
+        restoredDay.addTask(task.title, task.time);
+      });
+
+      days.push(restoredDay);
+    });
+  }
+}
 
 
 
@@ -322,6 +347,7 @@ function generateCalendar(){
     contentContainer.appendChild(calendarContainer)
 
   }
+  loadLocalStorage()
   createHtml()
   sidebar(new Date())
   if(days.length > 0){
