@@ -50,8 +50,8 @@ function sidebar(date){
 
 
   function renderWeek(){
-    const weekStart = startOfWeek(date, { weekStartsOn: 1 }) // Monday as first day
-    const weekEnd = endOfWeek(date, { weekStartsOn: 1 })     // Sunday as last day
+    const weekStart = startOfWeek(date, { weekStartsOn: 1 })
+    const weekEnd = endOfWeek(date, { weekStartsOn: 1 })    
 
     const weekDates = eachDayOfInterval({ start: weekStart, end: weekEnd })
 
@@ -167,9 +167,15 @@ function tasksContainer(){
 
 
     `
+    requestAnimationFrame(() => {
+      handleDialogClick()
+      handleTaskForm()
+    })
+  }
+
+  function renderTasks(){
     const newTask = document.querySelector(".new-task")
-
-
+    newTask.innerHTML = ""
     for(let day of days){
       if(day.date === clickedDate){
         if(day.tasks.length === 0){
@@ -189,13 +195,13 @@ function tasksContainer(){
             input.type = "checkbox"
             input.checked = task.isDone
             input.addEventListener("change",(e)=>{task.isDone = e.target.checked})
-            saveDataInLocalStorage()
 
             const button = document.createElement("button")
             button.className = "close-task"
             button.textContent = "-"
             button.dataset.id = i
             button.dataset.date = clickedDate
+            hadleDeleteBtn(button)
 
             const timePara = document.createElement("p")
             timePara.textContent = task.time
@@ -215,12 +221,9 @@ function tasksContainer(){
 
         }
       }
-
     }
-    handleDialogClick()
-    handleTaskForm()
-    hadleDeleteBtn()
   }
+
 
   function handleDialogClick(){
     const taskBtn = document.querySelector(".task-btn")
@@ -254,55 +257,45 @@ function tasksContainer(){
   function handleTaskForm(){
     const submitButton = document.querySelector(".submit-task")
 
-    const findedDate = findSelectedDate()
-
     submitButton.addEventListener("click", (e)=>{
+      const findedDate = findSelectedDate()
       e.preventDefault()
       const task = document.querySelector("#task")
       const time = document.querySelector("#time")
       const dialog = document.querySelector(".calendar-dialog")
       dialog.close()
       findedDate.addTask(task.value, time.value)
-      saveDataInLocalStorage()
-      renderTasksHtml()
+
+      renderTasks()
     })
 
   }
 
-  function hadleDeleteBtn(){
-    const deleteButtons = document.querySelectorAll(".close-task")
-    if(!deleteButtons){
-      return;
-    }
-    deleteButtons.forEach((deleteBtn) => {
-      deleteBtn.addEventListener("click",(e)=>{
-        const dateForDelete = e.target.dataset.date
-        const idForDelete = e.target.dataset.id
-        
-        for(let day of days){
-          if(day.date === dateForDelete){
-            for(let i = 0; i < day.tasks.length; i++){
-              if(i === Number(idForDelete)){
+  function hadleDeleteBtn(deleteBtn){
 
-                day.tasks.splice(i, 1)
-                saveDataInLocalStorage()
-                renderTasksHtml()
+    deleteBtn.addEventListener("click",(e)=>{
+      const dateForDelete = e.target.dataset.date
+      const idForDelete = e.target.dataset.id
+      
+      for(let day of days){
+        if(day.date === dateForDelete){
+          for(let i = 0; i < day.tasks.length; i++){
+            if(i === Number(idForDelete)){
 
-                break
-              }
+              day.tasks.splice(i, 1)
+
+              renderTasks()
+
+              return;
             }
           }
         }
-      })
+      }
     })
+
   }
 
   renderTasksHtml()
-  requestAnimationFrame(()=>{
-    handleDialogClick()
-    handleTaskForm()
-    hadleDeleteBtn()
-  })
 
 
 }
@@ -310,33 +303,12 @@ function tasksContainer(){
 
 
 
-function saveDataInLocalStorage(){
-  localStorage.setItem("days", JSON.stringify(days))
-
-}
-
-function loadLocalStorage(){
-  const savedDays = JSON.parse(localStorage.getItem("days"));
-  if (savedDays) {
-    days.length = 0;
-
-    savedDays.forEach(savedDay => {
-      const restoredDay = createDay(savedDay.date);
-
-      savedDay.tasks.forEach(task => {
-        restoredDay.addTask(task.title, task.time);
-      });
-
-      days.push(restoredDay);
-    });
-  }
-}
 
 
 
 
 function generateCalendar(){
-  loadLocalStorage()
+
   function createHtml(){
 
     const contentContainer = document.querySelector("#content-container")
