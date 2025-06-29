@@ -430,6 +430,7 @@ dialog button[type="submit"]:hover{
   grid-auto-rows: 300px;
   gap:2rem;
   color: var(--clr-blue-900);
+  position: relative;
 }
 
 .add-project-container,
@@ -495,5 +496,49 @@ dialog button[type="submit"]:hover{
 
 .add-project:hover{
   background-color: var(--clr-green-700);
+  cursor: pointer;
+}
+
+.project-dialog{
+  all: unset;
+  background-color: white;
+  position: absolute;
+  height: 30vw;
+  width: 30vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display:  flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 10px;
+  gap: 5rem;
+
+}
+
+.project-dialog form{
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.project-dialog-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.project-dialog-header button{
+  width: 50px;
+  background: white;
+  border: none;
+  color: red;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.project-dialog-header button:hover{
+  color: rgb(152, 2, 2);
   cursor: pointer;
 }
