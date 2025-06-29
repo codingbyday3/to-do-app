@@ -135,7 +135,6 @@ function sidebar(date){
 
 function tasksContainer(){
   function renderTasksHtml(){
-    const tasksContainer = document.querySelector(".task")
 
     mainContainer.innerHTML = `
  
@@ -182,30 +181,38 @@ function tasksContainer(){
         let i = 0
         for(let task of day.tasks){
             const taskDiv = document.createElement("div")
+            taskDiv.className = "task"
+            
             const controlTaskDiv = document.createElement("div")
+
             const input = document.createElement("input")
             input.type = "checkbox"
+            input.checked = task.isDone
+            input.addEventListener("change",(e)=>{task.isDone = e.target.checked})
+            saveDataInLocalStorage()
+
             const button = document.createElement("button")
             button.className = "close-task"
             button.textContent = "-"
             button.dataset.id = i
             button.dataset.date = clickedDate
-            taskDiv.className = "task"
+
             const timePara = document.createElement("p")
+            timePara.textContent = task.time
             const taskPara = document.createElement("p")
             taskPara.className = "task-name"
             taskPara.textContent = task.title
-            timePara.textContent = task.time
 
             controlTaskDiv.appendChild(input)
             controlTaskDiv.appendChild(button)
+
             taskDiv.appendChild(taskPara)
             taskDiv.appendChild(timePara)
             taskDiv.appendChild(controlTaskDiv)
 
             newTask.appendChild(taskDiv)
             i++
-          
+
         }
       }
 
@@ -253,7 +260,10 @@ function tasksContainer(){
       e.preventDefault()
       const task = document.querySelector("#task")
       const time = document.querySelector("#time")
+      const dialog = document.querySelector(".calendar-dialog")
+      dialog.close()
       findedDate.addTask(task.value, time.value)
+      saveDataInLocalStorage()
       renderTasksHtml()
     })
 
@@ -275,6 +285,7 @@ function tasksContainer(){
               if(i === Number(idForDelete)){
 
                 day.tasks.splice(i, 1)
+                saveDataInLocalStorage()
                 renderTasksHtml()
 
                 break
@@ -287,21 +298,45 @@ function tasksContainer(){
   }
 
   renderTasksHtml()
+  requestAnimationFrame(()=>{
+    handleDialogClick()
+    handleTaskForm()
+    hadleDeleteBtn()
+  })
 
-
-  handleDialogClick()
-  handleTaskForm()
-
-  hadleDeleteBtn()
 
 }
 
 
 
 
+function saveDataInLocalStorage(){
+  localStorage.setItem("days", JSON.stringify(days))
+
+}
+
+function loadLocalStorage(){
+  const savedDays = JSON.parse(localStorage.getItem("days"));
+  if (savedDays) {
+    days.length = 0;
+
+    savedDays.forEach(savedDay => {
+      const restoredDay = createDay(savedDay.date);
+
+      savedDay.tasks.forEach(task => {
+        restoredDay.addTask(task.title, task.time);
+      });
+
+      days.push(restoredDay);
+    });
+  }
+}
+
+
 
 
 function generateCalendar(){
+  loadLocalStorage()
   function createHtml(){
 
     const contentContainer = document.querySelector("#content-container")
@@ -323,5 +358,8 @@ function generateCalendar(){
 
 
 }
+
+
+
 
 export {generateCalendar}
