@@ -210,6 +210,9 @@ function tasksContainer(){
       }
 
     }
+    handleDialogClick()
+    handleTaskForm()
+    hadleDeleteBtn()
   }
 
   function handleDialogClick(){
@@ -246,15 +249,12 @@ function tasksContainer(){
 
     const findedDate = findSelectedDate()
 
-    submitButton.addEventListener("click", ()=>{
-      console.log(days)
+    submitButton.addEventListener("click", (e)=>{
+      e.preventDefault()
       const task = document.querySelector("#task")
       const time = document.querySelector("#time")
       findedDate.addTask(task.value, time.value)
       renderTasksHtml()
-      handleDialogClick()
-      handleTaskForm()
-      hadleDeleteBtn()
     })
 
   }
@@ -276,14 +276,12 @@ function tasksContainer(){
 
                 day.tasks.splice(i, 1)
                 renderTasksHtml()
-                handleDialogClick()
-                handleTaskForm()
+
                 break
               }
             }
           }
         }
-        console.log(days)
       })
     })
   }
