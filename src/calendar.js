@@ -360,4 +360,4 @@ function generateCalendar(){
 
 
 
-export {generateCalendar}
+export {generateCalendar, days}
